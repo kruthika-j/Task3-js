@@ -20,7 +20,7 @@ form{
 label, a {
     display: block;
 }
-#enter-current-pw, #enter-correct-pw{
+#enter-current-pw, #enter-correct-pw, #invalidPw{
     color: red;
 }
 

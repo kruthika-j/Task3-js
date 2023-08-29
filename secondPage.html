@@ -18,28 +18,46 @@
             <input type="text" class="box" id="address" placeholder="Enter your Address">     
             <a href="#" id="Change-Password">Change password</a>     
             
-            <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off"> 
+            <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off" onkeyup="displayNoneCP()"> 
             <p id="enter-current-pw"></p>    
             <p id="enter-correct-pw"></p>
-            <a href="#" id="change-password-link">Click here to change</a>     
+            <a href="#" id="new-password-link">Click to enter new password</a>     
         
             <input type="password" class="box" id="new-password-input" placeholder="Enter new Password">   
+            <p id="invalidPw"></p>
+            <a href="" id="Change-password-link">Click to change password</a>
+            
             <input type="submit" class="box" value="Submit">  
         </form>     
     </div>
 
         <script>
+            let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
+          
+
+            function displayNoneCP(){
+                let currentPw = document.getElementById("enter-current-pw");
+                document.getElementById("enter-current-pw").style.display = "none";
+                let correctPw = document.getElementById("enter-correct-pw");
+                document.getElementById("enter-correct-pw").style.display = "none";
+            }
+            
+
             document.getElementById("current-password-input").style.display = "none";
-            document.getElementById("change-password-link").style.display = "none";
+            document.getElementById("new-password-link").style.display = "none";
             document.getElementById("new-password-input").style.display = "none";
+            document.getElementById("Change-password-link").style.display = "none";
+
 
             document.getElementById("Change-Password").onclick = function() {
                 document.getElementById("current-password-input").style.display = "block";
-                document.getElementById("change-password-link").style.display = "block";
+                document.getElementById("new-password-link").style.display = "block";
                 document.getElementById("new-password-input").style.display = "none"; 
+                document.getElementById("Change-password-link").style.display = "none";
+
             }
             
-            document.getElementById("change-password-link").onclick = function() {
+            document.getElementById("new-password-link").onclick = function() {
                 let current_password = document.getElementById("current-password-input").value;
                 const urlParams = new URLSearchParams(window.location.search);
                 const receivedPw = urlParams.get('pw');
@@ -54,6 +72,7 @@
                 else if(current_password === receivedPw) {
                     document.getElementById("current-password-input").style.display = "none";
                     document.getElementById("new-password-input").style.display = "block";
+                    document.getElementById("Change-password-link").style.display = "block";
                     document.getElementById("enter-current-pw").style.display = "none";
                     document.getElementById("enter-correct-pw").style.display = "none";
                 }
@@ -62,9 +81,34 @@
                     document.getElementById("enter-correct-pw").innerHTML = text;
                     document.getElementById("enter-correct-pw").style.display = "block";
                 }
+            }
+
+            document.getElementById("Change-password-link").onclick = function() {
+
+                let newPassword = document.getElementById("new-password-input").value;
+
+                document.getElementById("invalidPw").innerHTML = "";
 
                 
+                if (newPassword == "") {
+                    let textpw = "Enter password";
+                    document.getElementById("invalidPw").innerHTML = textpw;
+                    document.getElementById("invalidPw").style.display = "block";
+                    
+                } 
+                else if (newPassword.length <= 6) {
+                    let textpw = "Enter more than 6 characters";
+                    document.getElementById("invalidPw").innerHTML = textpw;
+                    document.getElementById("invalidPw").style.display = "block";
+                    
+                } 
+                else if (!specialCharRegex.test(newPassword)) {
+                    let textpw = "Password must contain at least one special character";
+                    document.getElementById("invalidPw").innerHTML = textpw;
+                    document.getElementById("invalidPw").style.display = "block";
+                }   
             }
+            
 
         </script>
 </body>
