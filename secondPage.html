@@ -7,21 +7,27 @@
     <link rel="stylesheet" href="secondPage.css">
 </head>
 <body>
-    <h1>Profile Update</h1>
-    <form action="">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Enter your Name">
-        <label for="mobile-number">Mobile Number</label>
-        <input type="text" id="mobile" placeholder="Enter your Mobile Number">
-        <label for="address">Address</label>
-        <input type="text" id="address" placeholder="Enter your Address">
-        <a href="#" id="Change-Password">Change password</a>
-    
-        <input type="password" id="current-password-input" placeholder="Enter Current Password" autocomplete="off">
-        <a href="#" id="change-password-link">Click here to change</a>
+    <div class="container">
+        <h1>Profile Update</h1>
+        <form action="">
+            <label for="name">Name</label>     
+            <input type="text" class="box" id="name" placeholder="Enter your Name">     
+            <label for="mobile-number">Mobile Number</label>     
+            <input type="tel" class="box" id="mobile" placeholder="Enter your Mobile Number">     
+            <label for="address">Address</label>     
+            <input type="text" class="box" id="address" placeholder="Enter your Address">     
+            <a href="#" id="Change-Password">Change password</a>     
+            
+            <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off"> 
+            <p id="enter-current-pw"></p>    
+            <p id="enter-correct-pw"></p>
+            <a href="#" id="change-password-link">Click here to change</a>     
+        
+            <input type="password" class="box" id="new-password-input" placeholder="Enter new Password">   
+            <input type="submit" class="box" value="Submit">  
+        </form>     
+    </div>
 
-        <input type="password" id="new-password-input" placeholder="Enter new Password">
-          
         <script>
             document.getElementById("current-password-input").style.display = "none";
             document.getElementById("change-password-link").style.display = "none";
@@ -35,14 +41,31 @@
             
             document.getElementById("change-password-link").onclick = function() {
                 let current_password = document.getElementById("current-password-input").value;
+                const urlParams = new URLSearchParams(window.location.search);
+                const receivedPw = urlParams.get('pw');
+
+                document.getElementById("enter-current-pw").innerHTML = "";
+
                 if (current_password === "") {
-                    alert("Please enter your current password.");
-                } else {
+                    let text = "Please enter your current password";
+                    document.getElementById("enter-current-pw").innerHTML = text;
+                    document.getElementById("enter-current-pw").style.display = "block";
+                } 
+                else if(current_password === receivedPw) {
                     document.getElementById("current-password-input").style.display = "none";
                     document.getElementById("new-password-input").style.display = "block";
+                    document.getElementById("enter-current-pw").style.display = "none";
+                    document.getElementById("enter-correct-pw").style.display = "none";
                 }
+                else {
+                    let text = "Please enter correct password";
+                    document.getElementById("enter-correct-pw").innerHTML = text;
+                    document.getElementById("enter-correct-pw").style.display = "block";
+                }
+
+                
             }
+
         </script>
-    </form>
 </body>
 </html>

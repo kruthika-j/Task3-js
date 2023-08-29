@@ -2,7 +2,36 @@
     margin: 0;
     padding: 0;
 }
-label {
+
+.container {
+    margin: 3%;
+    padding:3%;
+    height: 100%;
+    width: 30%;
+    background-color:white;
+    line-height: 40px;
+    border: 2px solid red;
+}
+
+form{
+    background-color: white;
+}
+
+label, a {
     display: block;
+}
+#enter-current-pw, #enter-correct-pw{
+    color: red;
+}
+
+.box {
+    width: 280px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 6px;
+}
+.submit-button {
+    color: red;
 }
 
