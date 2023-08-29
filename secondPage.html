@@ -27,7 +27,7 @@
             <p id="invalidPw"></p>
             <a href="" id="Change-password-link">Click to change password</a>
             
-            <input type="submit" class="box" value="Submit">  
+            <input type="submit" class="box" value="Submit" id="submit-button">  
         </form>     
     </div>
 
@@ -52,8 +52,6 @@
             document.getElementById("Change-Password").onclick = function() {
                 document.getElementById("current-password-input").style.display = "block";
                 document.getElementById("new-password-link").style.display = "block";
-                document.getElementById("new-password-input").style.display = "none"; 
-                document.getElementById("Change-password-link").style.display = "none";
 
             }
             
@@ -69,7 +67,7 @@
                     document.getElementById("enter-current-pw").innerHTML = text;
                     document.getElementById("enter-current-pw").style.display = "block";
                 } 
-                else if(current_password === receivedPw) {
+                else if(current_password === receivedPw ) {
                     document.getElementById("current-password-input").style.display = "none";
                     document.getElementById("new-password-input").style.display = "block";
                     document.getElementById("Change-password-link").style.display = "block";
@@ -84,7 +82,6 @@
             }
 
             document.getElementById("Change-password-link").onclick = function() {
-
                 let newPassword = document.getElementById("new-password-input").value;
 
                 document.getElementById("invalidPw").innerHTML = "";
@@ -107,9 +104,12 @@
                     document.getElementById("invalidPw").innerHTML = textpw;
                     document.getElementById("invalidPw").style.display = "block";
                 }   
+                else {
+                    document.getElementById("new-password-input").style.display = "none";
+                    document.getElementById("Change-password-link").style.display = "none";
+                }
             }
             
-
         </script>
 </body>
 </html>

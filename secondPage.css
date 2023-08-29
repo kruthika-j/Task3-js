@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
 }
-
 .container {
     margin: 3%;
     padding:3%;
@@ -12,18 +11,12 @@
     line-height: 40px;
     border: 2px solid red;
 }
-
-form{
-    background-color: white;
-}
-
 label, a {
     display: block;
 }
 #enter-current-pw, #enter-correct-pw, #invalidPw{
     color: red;
 }
-
 .box {
     width: 280px;
     height: 30px;
@@ -31,7 +24,9 @@ label, a {
     border-radius: 3px;
     padding: 6px;
 }
-.submit-button {
-    color: red;
+#submit-button {
+    background-color: rgb(148, 49, 236);  
+    border-radius: 5px;
+    border: none;
 }
 

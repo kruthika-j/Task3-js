@@ -108,7 +108,6 @@ function signin() {
                 flag = 1;
             }
            
-    
             if (password == "") {
                 let textpw = "Enter password";
                 document.getElementById("invalidPw").innerHTML = textpw;
@@ -140,13 +139,7 @@ function signin() {
             if(flag ==0 && !validUser){
             alert ("Please enter a valid credentials");
             }
-
-            // if (validUser) {
-            //     location.href = "secondPage.html";
-            // } else {
-            //     return false;
-            // }
-            // Inside the signin function
+            
             if (validUser) {
                 const pwToPass = validUser.pw;
                 const url = `secondPage.html?pw=${encodeURIComponent(pwToPass)}`;
