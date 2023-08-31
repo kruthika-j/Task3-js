@@ -16,22 +16,27 @@
             <input type="tel" class="box" id="mobile" placeholder="Enter your Mobile Number">     
             <label for="address">Address</label>     
             <input type="text" class="box" id="address" placeholder="Enter your Address">     
-            <a href="#" id="Change-Password">Change password</a>     
+            <a href="#" id="Change-Password" onclick="changePassword()">Change password</a>     
             
             <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off" onkeyup="displayNoneCP()"> 
             <p id="enter-current-pw"></p>    
             <p id="enter-correct-pw"></p>
-            <a href="#" id="new-password-link">Click to enter new password</a>     
+            <a href="#" id="new-password-link" onclick="newPasswordLink()">Click to enter new password</a>     
         
-            <input type="password" class="box" id="new-password-input" placeholder="Enter new Password">   
+            <input type="password" class="box" id="new-password-input" placeholder="Enter new Password" onkeyup="displayNoneErrorMsg()">   
             <p id="invalidPw"></p>
-            <a href="" id="Change-password-link">Click to change password</a>
+            <a href="#" id="Change-password-link" onclick="changePasswordLink()">Click to change password</a>
             
             <input type="submit" class="box" value="Submit" id="submit-button">  
         </form>     
     </div>
 
         <script>
+            function displayNoneErrorMsg(){
+                document.getElementById("invalidPw").style.display = "none";
+            }
+
+
             let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
           
 
@@ -49,13 +54,13 @@
             document.getElementById("Change-password-link").style.display = "none";
 
 
-            document.getElementById("Change-Password").onclick = function() {
+            function changePassword() {
                 document.getElementById("current-password-input").style.display = "block";
                 document.getElementById("new-password-link").style.display = "block";
 
             }
             
-            document.getElementById("new-password-link").onclick = function() {
+            function newPasswordLink() {
                 let current_password = document.getElementById("current-password-input").value;
                 const urlParams = new URLSearchParams(window.location.search);
                 const receivedPw = urlParams.get('pw');
@@ -81,11 +86,8 @@
                 }
             }
 
-            document.getElementById("Change-password-link").onclick = function() {
+            function changePasswordLink() {
                 let newPassword = document.getElementById("new-password-input").value;
-
-                document.getElementById("invalidPw").innerHTML = "";
-
                 
                 if (newPassword == "") {
                     let textpw = "Enter password";
@@ -105,8 +107,7 @@
                     document.getElementById("invalidPw").style.display = "block";
                 }   
                 else {
-                    document.getElementById("new-password-input").style.display = "none";
-                    document.getElementById("Change-password-link").style.display = "none";
+                    alert("success");
                 }
             }
             
