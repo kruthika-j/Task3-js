@@ -44,9 +44,6 @@
             </form>
         </div>
 
-        <div>
-            <img src="image.jfif" class="rightImage" alt="">
-        </div>
     </div>
 
 
@@ -141,12 +138,11 @@ function signin() {
             }
             
             if (validUser) {
-                const pwToPass = validUser.pw;
-                const url = `secondPage.html?pw=${encodeURIComponent(pwToPass)}`;
-                location.href = url; 
+                localStorage.setItem('password', password);
+               loaddata();
             } 
-            else {
-                return false;
+            function loaddata(){
+                window.location.href = "secondPage.html";
             }
 
 }

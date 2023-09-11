@@ -24,9 +24,12 @@ label, a {
     border-radius: 3px;
     padding: 6px;
 }
-#submit-button {
+#Change-password-link{
+    margin-top: 10px;
     background-color: rgb(148, 49, 236);  
     border-radius: 5px;
     border: none;
 }
-
+.hidden {
+    display: none;
+}

@@ -3,114 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile Update</title>
     <link rel="stylesheet" href="secondPage.css">
+    
 </head>
 <body>
     <div class="container">
         <h1>Profile Update</h1>
         <form action="">
-            <label for="name">Name</label>     
-            <input type="text" class="box" id="name" placeholder="Enter your Name">     
-            <label for="mobile-number">Mobile Number</label>     
-            <input type="tel" class="box" id="mobile" placeholder="Enter your Mobile Number">     
-            <label for="address">Address</label>     
-            <input type="text" class="box" id="address" placeholder="Enter your Address">     
-            <a href="#" id="Change-Password" onclick="changePassword()">Change password</a>     
+            <label for="name">Name</label>
+            <input type="text" class="box" id="name" placeholder="Enter your Name">
+            <label for="mobile-number">Mobile Number</label>
+            <input type="tel" class="box" id="mobile" placeholder="Enter your Mobile Number">
+            <label for="address">Address</label>
+            <input type="text" class="box" id="address" placeholder="Enter your Address">
+            <a href="#" id="Change-Password" onclick="changePassword()">Change password</a>
             
-            <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off" onkeyup="displayNoneCP()"> 
-            <p id="enter-current-pw"></p>    
+            <input type="password" class="box" id="current-password-input" placeholder="Enter Current Password" autocomplete="off" onkeyup="displayNoneCP()">
+            <p id="enter-current-pw"></p>
             <p id="enter-correct-pw"></p>
-            <a href="#" id="new-password-link" onclick="newPasswordLink()">Click to enter new password</a>     
+            <a href="#" id="new-password-link" onclick="newPasswordLink()">Click to enter new password</a>
         
-            <input type="password" class="box" id="new-password-input" placeholder="Enter new Password" onkeyup="displayNoneErrorMsg()">   
+            <input type="password" class="box" id="new-password-input" placeholder="Enter new Password">
             <p id="invalidPw"></p>
-            <a href="#" id="Change-password-link" onclick="changePasswordLink()">Click to change password</a>
             
-            <input type="submit" class="box" value="Submit" id="submit-button">  
-        </form>     
+            <input type="submit" class="box" value="Submit" id="Change-password-link" onclick="changePasswordLink()">
+        </form>
     </div>
 
-        <script>
-            function displayNoneErrorMsg(){
-                document.getElementById("invalidPw").style.display = "none";
-            }
+    <script>
+        let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
 
+        function displayNoneCP() {
+            let currentPw = document.getElementById("enter-current-pw");
+            document.getElementById("enter-current-pw").style.display = "none";
+            let correctPw = document.getElementById("enter-correct-pw");
+            document.getElementById("enter-correct-pw").style.display = "none";
+        }
 
-            let specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
-          
+        document.getElementById("current-password-input").style.display = "none";
+        document.getElementById("new-password-link").style.display = "none";
+        document.getElementById("new-password-input").style.display = "none";
+        document.getElementById("Change-password-link").style.display = "none";
 
-            function displayNoneCP(){
-                let currentPw = document.getElementById("enter-current-pw");
+        function changePassword() {
+            document.getElementById("current-password-input").style.display = "block";
+            document.getElementById("new-password-link").style.display = "block";
+        }
+
+        function newPasswordLink() {
+            let currentPassword = document.getElementById("current-password-input").value;
+
+            let storedPassword = localStorage.getItem('password');
+
+            document.getElementById("enter-current-pw").innerHTML = "";
+
+            if (currentPassword === "") {
+                let text = "Please enter your current password";
+                document.getElementById("enter-current-pw").innerHTML = text;
+                document.getElementById("enter-current-pw").style.display = "block";
+            } else if (currentPassword === storedPassword) {
+                document.getElementById("current-password-input").style.display = "none";
+                document.getElementById("new-password-input").style.display = "block";
+                document.getElementById("Change-password-link").style.display = "block";
                 document.getElementById("enter-current-pw").style.display = "none";
-                let correctPw = document.getElementById("enter-correct-pw");
                 document.getElementById("enter-correct-pw").style.display = "none";
+            } else {
+                let text = "Please enter the correct password";
+                document.getElementById("enter-correct-pw").innerHTML = text;
+                document.getElementById("enter-correct-pw").style.display = "block";
             }
-            
+        }
 
-            document.getElementById("current-password-input").style.display = "none";
-            document.getElementById("new-password-link").style.display = "none";
-            document.getElementById("new-password-input").style.display = "none";
-            document.getElementById("Change-password-link").style.display = "none";
+        function changePasswordLink() {
+            let newPassword = document.getElementById("new-password-input").value;
 
-
-            function changePassword() {
-                document.getElementById("current-password-input").style.display = "block";
-                document.getElementById("new-password-link").style.display = "block";
-
+            if (newPassword == "") {
+                let textpw = "Enter password";
+                document.getElementById("invalidPw").innerHTML = textpw;
+                document.getElementById("invalidPw").style.display = "block";
+            } else if (newPassword.length <= 6) {
+                let textpw = "Enter more than 6 characters";
+                document.getElementById("invalidPw").innerHTML = textpw;
+                document.getElementById("invalidPw").style.display = "block";
+            } else if (!specialCharRegex.test(newPassword)) {
+                let textpw = "Password must contain at least one special character";
+                document.getElementById("invalidPw").innerHTML = textpw;
+                document.getElementById("invalidPw").style.display = "block";
+            } else {
+                localStorage.setItem('password', newPassword);
+                alert("Password changed successfully");
             }
-            
-            function newPasswordLink() {
-                let current_password = document.getElementById("current-password-input").value;
-                const urlParams = new URLSearchParams(window.location.search);
-                const receivedPw = urlParams.get('pw');
-
-                document.getElementById("enter-current-pw").innerHTML = "";
-
-                if (current_password === "") {
-                    let text = "Please enter your current password";
-                    document.getElementById("enter-current-pw").innerHTML = text;
-                    document.getElementById("enter-current-pw").style.display = "block";
-                } 
-                else if(current_password === receivedPw ) {
-                    document.getElementById("current-password-input").style.display = "none";
-                    document.getElementById("new-password-input").style.display = "block";
-                    document.getElementById("Change-password-link").style.display = "block";
-                    document.getElementById("enter-current-pw").style.display = "none";
-                    document.getElementById("enter-correct-pw").style.display = "none";
-                }
-                else {
-                    let text = "Please enter correct password";
-                    document.getElementById("enter-correct-pw").innerHTML = text;
-                    document.getElementById("enter-correct-pw").style.display = "block";
-                }
-            }
-
-            function changePasswordLink() {
-                let newPassword = document.getElementById("new-password-input").value;
-                
-                if (newPassword == "") {
-                    let textpw = "Enter password";
-                    document.getElementById("invalidPw").innerHTML = textpw;
-                    document.getElementById("invalidPw").style.display = "block";
-                    
-                } 
-                else if (newPassword.length <= 6) {
-                    let textpw = "Enter more than 6 characters";
-                    document.getElementById("invalidPw").innerHTML = textpw;
-                    document.getElementById("invalidPw").style.display = "block";
-                    
-                } 
-                else if (!specialCharRegex.test(newPassword)) {
-                    let textpw = "Password must contain at least one special character";
-                    document.getElementById("invalidPw").innerHTML = textpw;
-                    document.getElementById("invalidPw").style.display = "block";
-                }   
-                else {
-                    alert("success");
-                }
-            }
-            
-        </script>
+        }
+    </script>
 </body>
 </html>
